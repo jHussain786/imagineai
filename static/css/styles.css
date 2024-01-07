@@ -1,0 +1,224 @@
+body {
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+}
+
+.center-body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.form-container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
+}
+
+/* posts styling */
+.post-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+    justify-content: center;
+    border: none;
+}
+
+.post {
+    position: relative;
+    border:none;
+    width: 100%;
+    max-width: 300px;
+    overflow: hidden;
+    ;
+    border-radius: 8px;
+}
+
+.post img {
+    width: 100%;
+    max-height: 500px;
+    display: block;
+    margin: 0 auto;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 10px;
+    color: #fff;
+    background: rgba(0, 0, 0, 0.7);
+    opacity: 0;
+    transition: opacity 0.3s;
+    border-radius: 8px;
+}
+
+.post:hover .overlay {
+    opacity: 1;
+    cursor: pointer;
+}
+
+.prompt,
+.user {
+    margin: 0;
+}
+
+.prompt {
+    font-size: 1.2em;
+}
+
+.form-container:hover {
+    transform: scale(1.05);
+}
+
+.form-label {
+    display: block;
+    margin-bottom: 8px;
+}
+
+.form-input {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 16px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.form-submit {
+    background-color: #4caf50;
+    color: white;
+    cursor: pointer;
+}
+
+.form-submit:hover {
+    background-color: #45a049;
+}
+
+.loading {
+    display: none;
+    margin-top: 10px;
+}
+
+.loading-bar {
+    height: 25px;
+    background-color: #4caf50;
+    width: 0;
+    transition: width 1s ease-in-out;
+}
+
+@media (max-width: 600px) {
+    .form-container {
+        width: 90%;
+    }
+}
+
+.sidenav {
+    height: 100%;
+    width: 15em; /* Set the initial width to 250px */
+    font-size: 1em;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #111;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+}
+.header-container {
+    background-color: grey;
+    border-radius: 4px;
+    color: #ffffff;
+    padding: 40px 0;
+    text-align: center;
+}
+
+.header-container h1 {
+    font-size: 3em;
+    margin-bottom: 20px;
+    transition: color 0.5s ease-in-out;
+}
+
+.header-container p {
+    font-size: 1.5em;
+    margin-bottom: 30px;
+    transition: color 0.5s ease-in-out;
+}
+
+.header-container:hover h1,
+.header-container:hover p {
+    color: #000000;
+}
+.sidenav a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 2vh;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+}
+
+.sidenav a:hover {
+    color: #f1f1f1;
+}
+
+.sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+}
+
+#main {
+    transition: margin-left .5s;
+    padding: 16px;
+    margin-left: 250px;
+}
+
+@media screen and (max-height: 450px) {
+    .sidenav {
+        padding-top: 15px;
+    }
+
+    .sidenav a {
+        font-size: 18px;
+    }
+}
+
+
+
+#imageForm.show {
+display: block;
+transition: all 0.5s ease-in-out;
+}
+
+#imageForm.show .form-group {
+opacity: 1;
+transform: translateY(0);
+transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+}
+
+.form-group  {
+opacity: 0;
+transform: translateY(-20px);
+transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+}
+.navbar-btns {
+font-size: 1.2em;
+color: #000000;
+transition: color 0.5s ease-in-out;
+}

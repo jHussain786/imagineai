@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %}Feed Page{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row">
+    <div class="container mt-5">
+        
+        <div class="post-container">
+                {%for image in response %}
+                    <div class="post">
+                        <a href="{{image}}" target="_blank">
+                            <img src="{{image}}" alt="Second Image">
+                        </a>
+                        <div class="overlay" onclick="window.open('./static/images/image2.png', '_blank');">
+                            <p class="prompt"> THIS ONE What story does this image tell you?</p>
+                            <p class="user">Posted by: User2</p>
+                        </div>
+                    </div>
+                {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

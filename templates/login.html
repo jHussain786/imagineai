@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            display: flex;
+            height: 100vh;
+            overflow: hidden; /* Hide overflow for a cleaner look */
+        }
+
+        .left-column {
+            flex: 1;
+            background-color: #000;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .left-column img {
+            width: 100%;
+            height: auto;
+            transition: transform 1s ease-in-out; /* Add transition for image */
+        }
+
+        .left-column:hover img {
+            transform: scale(1.1); /* Zoom in on hover */
+        }
+
+        .right-column {
+            flex: 1;
+            background-color: #fff;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            transition: background-color 0.5s ease-in-out; /* Add transition for background-color */
+        }
+
+        .right-column h1 {
+            font-size: 36px;
+            margin-bottom: 10px;
+            color: #333; /* Initial color */
+            cursor: pointer;
+            animation: fadeInDown 1s ease-out; /* Initial fade-in animation */
+        }
+
+        .right-column p {
+            font-size: 18px;
+            margin-bottom: 10px;
+            color: #555; /* Initial color */
+            animation: fadeInDown 1.5s ease-out; /* Initial fade-in animation with delay */
+        }
+
+        .right-column .tagline {
+            font-size: 24px;
+            color: #777; /* Initial color */
+            animation: fadeInDown 2s ease-out; /* Initial fade-in animation with delay */
+        }
+
+        .right-column h1:hover,
+        .right-column p:hover,
+        .right-column .tagline:hover {
+            color: #007bff; /* Change color on hover */
+            transform: scale(1.1); /* Add zoom on hover */
+            transition: color 0.5s ease-in-out, transform 0.5s ease-in-out; /* Add transitions for color and transform on hover */
+        }
+
+        @keyframes fadeInDown {
+            0% {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .login-form {
+            width: 100%;
+            padding: 5%;
+            max-width: 400px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.5s ease-in-out, height 0.5s ease-in-out; /* Add transitions for form */
+            overflow: hidden; /* Hide overflowing content */
+            height: 40vh; /* Set initial height to 70% of the viewport height */
+        }
+
+        .login-form input[type="text"],
+        .login-form input[type="password"] {
+            width: calc(100% - 20px);
+            margin: 10px;
+            padding: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .login-form button {
+            width: calc(100% - 20px);
+            margin: 10px;
+            padding: 15px;
+            background-color: #ccc;
+            color: #000;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .login-form button:hover {
+            background-color: #000;
+            color: #fff;
+        }
+
+        .signup-button {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .signup-button a {
+            color: #000;
+            text-decoration: none;
+            transition: color 0.5s ease-in-out; /* Add transition for link color */
+        }
+
+        .signup-button a:hover {
+            color: #777;
+        }
+        .success-message,
+        .error-message {
+            color: #fff;
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        .success-message {
+            background-color: #28a745; /* Green background for success message */
+        }
+
+        .error-message {
+            background-color: #dc3545; /* Red background for error message */
+        }
+        p {
+            overflow: hidden;
+            white-space: nowrap;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            
+            border-right: 2px solid #000;
+            animation: typing 3s steps(40) 1s forwards;
+        }
+
+        @keyframes typing {
+            from {
+                width: 0;
+            }
+
+            to {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="left-column">
+            <img src="./static/images/login.png" alt="Your Image">
+        </div>
+        <div class="right-column">
+            <h1>Imagine.ai</h1>
+            <p>Turning Imagination into Images</p>
+            <div class="login-form" id="login-form">
+
+                <h2>Login</h2>
+                {% if notice_message %}
+                <div class="success-message">
+                    {{ notice_message }}
+                </div>
+                {% endif %}
+                {% if error_message %}
+                    <div class="error-message">
+                        {{ error_message }}
+                    </div>
+                {% endif %}
+                <form method="post" action="{% url 'login_user' %}">
+                    {% csrf_token %}
+                    <input type="text" name="email" placeholder="Email" required>
+                    <input type="password" name="password" placeholder="Password" required>
+                    <input type="hidden" name="next" value="{{ request.GET.next }}">
+                    <button type="submit">Login</button>
+                </form>
+                <div class="signup-button">
+                    <a href="signup">Sign Up</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Use JavaScript to add the 'show' class after a delay
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(function() {
+                document.getElementById('login-form').classList.add('show');
+            }, 100);
+        });
+    </script>
+</body>
+</html>

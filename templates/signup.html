@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup Page</title>
+    {% load static %} <!-- Add this line to load the static tag -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-image: url('{% static "images/signup.png" %}');
+            background-size: cover;
+            background-position: center;
+            color: #fff;
+        }
+
+        @keyframes zoomInOut {
+            0% {
+                transform: scale(1);
+            }
+            100% {
+                transform: scale(1.1);
+            }
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .form-container {
+            transform: translateY(-20px);
+            transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+            width: 90%;
+            max-width: 500px;
+            padding: 30px;
+            background-color: rgb(255, 255, 255);
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        .form-container.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .form-container input[type="text"],
+        .form-container input[type="password"] {
+            width: 100%;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            padding: 15px;
+            background-color: #f2f2f2; /* Set the background color for the input fields */
+        }
+
+        .form-container button {
+            width: 100%;
+            background-color: #ccc;
+            color: #000;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            padding: 20px;
+        }
+
+        .form-container button:hover {
+            background-color: #000;
+            color: #fff;
+        }
+
+        .signup-button {
+            margin-top: 20px;
+        }
+
+        .signup-button a {
+            color: #000;
+            text-decoration: none;
+        }
+
+        .login-link {
+            margin-top: 20px;
+            display: block;
+            color: #ccc;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="form-container" id="signupForm">
+            <form>
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Full Name" required>
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Email" required>
+                </div>
+                <div class="form-group">
+                    <input type="password" class="form-control" placeholder="Password" required>
+                </div>
+                <div class="form-group">
+                    <input type="password" class="form-control" placeholder="Confirm Password" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Sign up</button>
+            </form>
+            <div class="signup-button">
+                <a href="login_view">Already have an account? Login here.</a>
+            </div>
+            <a href="{% url 'password_reset' %}" class="login-link" style="color: blue;">Forgot password? Click here to reset.</a>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(function() {
+                document.getElementById('signupForm').classList.add('show');
+            }, 100);
+        });
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
