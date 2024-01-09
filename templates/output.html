@@ -5,20 +5,87 @@
 {% block content %}
 <div class="container mt-5">
     <div class="row">
-    <div class="container mt-5">
-        
-        <div class="post-container">
-                {%for image in response %}
+        <div class="container mt-5">
+            <div class="post-container">
+                {% for image in response %}
                     <div class="post">
-                        <a href="{{image}}" target="_blank">
-                            <img src="{{image}}" alt="Second Image">
-                        </a>
-                        <div class="overlay" onclick="window.open('./static/images/image2.png', '_blank');">
-                            <p class="prompt"> THIS ONE What story does this image tell you?</p>
-                            <p class="user">Posted by: User2</p>
+                        <img src="data:image/png;base64,{{ image }}" alt="Generated Image" onclick="openImage('{{ image|safe }}');">
+                        <div class="overlay" onclick="openImage('{{ image|safe }}');">
+                            <p class="prompt">{{ prompt }}</p>
+                            <p class="user">Posted by: {{ user }}</p>
+                            <button class="btn btn-danger" onclick="downloadImage('{{ image|safe }}');">Download Image</button>
                         </div>
                     </div>
                 {% endfor %}
+            </div>
+            <div id="imageModal" class="modal container">
+                <div class="modal-content-container">
+                    <span class="close" onclick="closeModal()">&times;</span>
+                    <div id="imageDescription">
+                        <p class="prompt"></p>
+                        <p class="user"></p>
+                        <button class="btn btn-danger" onclick="downloadImage(currentImage);">Download Image</button>
+                    </div>
+                    <img id="modalImage" class="modal-content" alt="Generated Image">
+                </div>
+            </div>
+            <div id="overlay">
+                
+            </div>
+            <script>
+                var currentImage;
+
+                function openImage(encodedImage) {
+                    currentImage = encodedImage;
+                    var modal = document.getElementById("imageModal");
+                    var modalImage = document.getElementById("modalImage");
+                    var imageDescription = document.getElementById("imageDescription");
+
+                    imageDescription.style.float = "left";
+                    imageDescription.style.padding = "3vh 3vw 3vh 3vw";
+
+                    var decodedImage = atob(encodedImage);
+                    var dataUrl = "data:image/png;base64," + btoa(decodedImage);
+
+                    modalImage.src = dataUrl;
+                    imageDescription.getElementsByClassName("prompt")[0].innerHTML = "{{ prompt }}";
+                    imageDescription.getElementsByClassName("user")[0].innerHTML = "Posted by: {{ user }}";
+                    modalImage.style.width = "auto"
+                    modalImage.style.scrollBehavior = "smooth";
+                    modal.style.scrollBehavior = "smooth";
+
+                    modal.style.overflowY = "scroll";
+
+              
+                    modal.style.display = "block";
+                    overlay.style.display = "block";
+                }
+
+                function closeModal() {
+                    var modal = document.getElementById("imageModal");
+
+                    modal.style.display = "none";
+                    overlay.style.display = "none";
+
+                    document.body.style.overflow = "auto";
+                }
+
+                function downloadImage(encodedImage) {
+                    var decodedImage = atob(encodedImage);
+                    var arrayBuffer = new ArrayBuffer(decodedImage.length);
+                    var uint8Array = new Uint8Array(arrayBuffer);
+                    for (var i = 0; i < decodedImage.length; i++) {
+                        uint8Array[i] = decodedImage.charCodeAt(i);
+                    }
+
+                    var blob = new Blob([uint8Array], { type: 'image/png' });
+
+                    var link = document.createElement('a');
+                    link.href = URL.createObjectURL(blob);
+                    link.download = 'image.png';
+                    link.click();
+                }
+            </script>
         </div>
     </div>
 </div>

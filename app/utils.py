@@ -75,12 +75,11 @@ class OpenAIapi:
     
     def request_dall_e(self, prompt, urls):
         response = self.client.images.generate(
-        model="dall-e-3",
-        prompt=prompt,
-        n=1,
-        quality="standard"
+            model="dall-e-3",
+            prompt=prompt,
+            n=1,
+            quality="standard"
         )
-        print(str(response))
         url = response.data[0].url
         urls.append(url)
     
